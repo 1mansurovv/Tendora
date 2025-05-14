@@ -1,0 +1,144 @@
+{
+  "marlet": [
+    {
+      "id": "cc43",
+      "name": "Erkaklar uchun klassik futbolka",
+      "description": "Paxtadan tikilgan, nafas oluvchi material, 5 xil rangda mavjud.",
+      "price": "120.000",
+      "category": "Clothing",
+      "images": [
+        "https://images.uzum.uz/cv5gknbvgbkm5ehimamg/original.jpg",
+        "https://images.uzum.uz/cv5gm1jvgbkm5ehimb20/original.jpg"
+      ]
+    },
+    {
+      "id": "2565",
+      "name": "Ayollar uchun yozgi ko‘ylak",
+      "description": "Tavsif: Engil shifon matodan, belbog‘li model.",
+      "price": "210.000",
+      "category": "Clothing",
+      "images": [
+        "https://images.uzum.uz/cvse2hei4n37npao56r0/original.jpg",
+        "https://images.uzum.uz/cvse2hdpb7fbmqmnfiu0/original.jpg",
+        "https://images.uzum.uz/cvse2hk7fd1p445s98dg/original.jpg"
+      ]
+    },
+    {
+      "id": "15f4",
+      "name": "Erkaklar shim – denim",
+      "description": "Tavsif: Klassik ko‘k rangli jinsilar, zamonaviy kesim.",
+      "price": "180.000",
+      "category": "Clothing",
+      "images": [
+        "https://images.uzum.uz/d0154l47fd1p445tanmg/original.jpg",
+        "https://images.uzum.uz/d0154mk7fd1p445tanng/original.jpg",
+        "https://images.uzum.uz/d0154l47fd1p445tanmg/original.jpg"
+      ]
+    },
+    {
+      "id": "a3f7",
+      "name": "Bolalar sport kostyumi",
+      "description": "Tavsif: 3 yoshdan 10 yoshgacha, paxta-polyester aralashmasi.",
+      "price": "140.000",
+      "category": "Clothing",
+      "images": [
+        "https://images.uzum.uz/cs2l6essslojjk5rtd50/original.jpg",
+        "https://images.uzum.uz/csqtscj4nkdilc6altig/original.jpg",
+        "https://images.uzum.uz/csqtsdtpq3ggq63d8cg0/original.jpg",
+        "https://images.uzum.uz/csqtsfdpq3ggq63d8ch0/original.jpg"
+      ]
+    },
+    {
+      "id": "ff55",
+      "name": "Erkaklar uchun sport krossovkalar",
+      "description": " Yugurish uchun qulay, antishok taglik bilan.",
+      "price": "250.000",
+      "category": "Clothing",
+      "images": [
+        "https://images.uzum.uz/cv8j67lpb7f9qcnh2ccg/original.jpg",
+        "https://images.uzum.uz/cv8j67mi4n36ls3ubvs0/original.jpg",
+        "https://images.uzum.uz/cq6irdj5qt1gj8den87g/original.jpg"
+      ]
+    },
+    {
+      "id": "5d59",
+      "name": "Redmi Note 13 Pro – 128GB",
+      "description": "Tavsif: 6.67 AMOLED ekran, 108MP kamera, 5000mAh batareya.",
+      "price": "2.500000",
+      "category": "Electronics",
+      "images": [
+        "https://images.uzum.uz/crog12ijot51rkb2i6q0/original.jpg",
+        "https://images.uzum.uz/crog12ijot51rkb2i6pg/original.jpg",
+        "hhttps://images.uzum.uz/cmpqkqrifoubkc6pfaug/original.jpg"
+      ]
+    },
+    {
+      "id": "d39e",
+      "name": "Samsung Galaxy Buds Live",
+      "description": " Bluetooth quloqchinlar, shovqinni bostirish funksiyasi",
+      "price": "850.000",
+      "category": "Electronics",
+      "images": [
+        "https://assets.asaxiy.uz/product/items/desktop/56637729d8cf8631f26df292717d34fb2023030714245445175uBeYoWbDaK.png.webp",
+        "https://assets.asaxiy.uz/product/items/desktop/ca7c39dd6e6dd495f1c2dcd4be871b242023030714250168708OKVwD8opS1.png.webp",
+        "https://assets.asaxiy.uz/product/items/desktop/07de38974f3dd19b41023eea889761252023030714250078065VY7XWnybIP.png.webp"
+      ]
+    },
+    {
+      "id": "ed41",
+      "name": "HP Pavilion Laptop – 15 dyuym, 8GB RAM",
+      "description": "Ofis va o‘qish uchun ajoyib variant, Intel i5 protsessor.",
+      "price": "5.800000",
+      "category": "Electronics",
+      "images": [
+        "https://assets.asaxiy.uz/product/items/desktop/042fa504f2d8cdaab0bf75ee11f2459c2024080917350352065zk0TALoKtV.png",
+        "https://assets.asaxiy.uz/product/items/desktop/2a345e8f23cd493641bf75b26d1489bc2024080917350260978jZxdQVu4yI.jpg",
+        "https://assets.asaxiy.uz/product/items/desktop/624eff53d14ab9eae83afcbd6e814b5f20240809173502293034yXYvaJbJb.jpg"
+      ]
+    },
+    {
+      "id": "97ea",
+      "name": "Xiaomi Mi Band 8",
+      "description": "Fitness uchun aqlli bilaguzuk, yurak urishini o‘lchaydi.",
+      "price": "400.000",
+      "category": "Electronics",
+      "images": [
+        "https://assets.asaxiy.uz/product/items/desktop/580937d197e9684c3ebbc2f5f80278f12024080910135214540RgwBaKAEbq.png",
+        "https://assets.asaxiy.uz/product/items/desktop/e53234bb5a56c7d9d39d0b0345bf9a882024080910050113765kkPsc2IWqo.jpeg"
+      ]
+    },
+    {
+      "id": "ab51",
+      "name": "Apple iPad 9th Gen – 64GB",
+      "description": "Ish va ta’lim uchun qulay planshet, Retina ekran.",
+      "price": "6.200000",
+      "category": "Electronics",
+      "images": [
+        "https://assets.asaxiy.uz/product/items/desktop/6444b9505c62bdd9e0ff39f3a877579d2021121216574310813LwlfvQaDR6.jpg.webp",
+        "https://assets.asaxiy.uz/product/items/desktop/f8d5dd4f39a41a196c55776043cba2ee20211212165743582789b5a3jNiZM.jpg.webp",
+        "https://assets.asaxiy.uz/product/items/desktop/a5d9cf85e929db56370d5c881166b6092021121216574360223pmjfpaGbDx.jpg.webp"
+      ]
+    },
+    {
+      "id": "1d2d",
+      "name": "JBL Bluetooth kolonka – Flip 6",
+      "description": " Suvga chidamli, kuchli bass bilan portativ audio tizim.",
+      "price": "1.100000",
+      "category": "Electronics",
+      "images": [
+        "https://assets.asaxiy.uz/product/items/desktop/ee0dc655da02e88747edcd64313856a32023031615274467584HTCaxIBVGl.png.webp",
+        "https://assets.asaxiy.uz/product/items/desktop/4d314917b8833f68bebde6bf93c504862023031615274495641wm1LvG69UJ.png.webp"
+      ]
+    },
+    {
+      "id": "674a",
+      "name": "qani ",
+      "description": "ishalgin ",
+      "price": "22000",
+      "category": "Books",
+      "images": [
+        "https://api.uzpin.games/media/uploads/8746a08e-6206-410e-97b8-e2dda2fa4dea.jpg"
+      ]
+    }
+  ]
+}
