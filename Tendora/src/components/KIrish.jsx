@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { MyContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 export default function KIrish({ onClose }) {
   const { theme, setIsLoggedIn } = useContext(MyContext); // isLoggedIn holatini boshqarish
@@ -45,7 +45,9 @@ export default function KIrish({ onClose }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
       <div
         className={`w-full max-w-md mx-auto rounded-2xl shadow-2xl p-8 relative transition-all duration-300
-          ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"}`}
+          ${
+            theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
+          }`}
       >
         <button
           onClick={onClose}
@@ -64,9 +66,15 @@ export default function KIrish({ onClose }) {
           onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))} // faqat raqam
           maxLength={9}
           className={`w-full px-4 py-3 mb-4 rounded-lg border focus:outline-none transition
-            ${theme === "dark"
-              ? `bg-gray-800 ${errors.phone ? "border-red-500" : "border-gray-700"} text-white`
-              : `bg-gray-100 ${errors.phone ? "border-red-500" : "border-gray-300"} text-black`}`}
+            ${
+              theme === "dark"
+                ? `bg-gray-800 ${
+                    errors.phone ? "border-red-500" : "border-gray-700"
+                  } text-white`
+                : `bg-gray-100 ${
+                    errors.phone ? "border-red-500" : "border-gray-300"
+                  } text-black`
+            }`}
         />
 
         {/* Parol input */}
@@ -76,9 +84,15 @@ export default function KIrish({ onClose }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className={`w-full px-4 py-3 mb-6 rounded-lg border focus:outline-none transition
-            ${theme === "dark"
-              ? `bg-gray-800 ${errors.password ? "border-red-500" : "border-gray-700"} text-white`
-              : `bg-gray-100 ${errors.password ? "border-red-500" : "border-gray-300"} text-black`}`}
+            ${
+              theme === "dark"
+                ? `bg-gray-800 ${
+                    errors.password ? "border-red-500" : "border-gray-700"
+                  } text-white`
+                : `bg-gray-100 ${
+                    errors.password ? "border-red-500" : "border-gray-300"
+                  } text-black`
+            }`}
         />
 
         {/* Kirish tugmasi */}

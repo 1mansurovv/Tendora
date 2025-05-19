@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { CgClose } from "react-icons/cg";
@@ -6,16 +6,34 @@ import { MyContext } from "../App";
 
 import "react-toastify/dist/ReactToastify.css";
 
+const STORAGE_KEY = "modalProductData";
+
 export default function Modal({ onClose, onSubmit }) {
-  const { theme } = useContext(MyContext); // 👉 contextdan theme olamiz
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("Electronics");
-  const [images, setImages] = useState([]);
+  const { theme } = useContext(MyContext);
+
+  // Modalga kiritilgan ma'lumotlarni localStorage'dan olish
+  const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+
+  const [name, setName] = useState(savedData.name || "");
+  const [description, setDescription] = useState(savedData.description || "");
+  const [price, setPrice] = useState(savedData.price || "");
+  const [category, setCategory] = useState(savedData.category || "Electronics");
+  const [images, setImages] = useState(savedData.images || []);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+
+  // localStorage ga doimiy saqlash (har safar qiymatlar o'zgarganda)
+  useEffect(() => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ name, description, price, category, images })
+    );
+
+    // images dan preview yaratish
+    const previews = images.map((url) => url);
+    setImagePreviews(previews);
+  }, [name, description, price, category, images]);
 
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
@@ -29,6 +47,7 @@ export default function Modal({ onClose, onSubmit }) {
           { headers: { "Content-Type": "multipart/form-data" } }
         );
         setImages((prev) => [...prev, res.data.file_url]);
+        // Preview uchun local URL
         setImagePreviews((prev) => [...prev, URL.createObjectURL(file)]);
       } catch (error) {
         console.error("Rasm yuklashda xatolik:", error);
@@ -66,13 +85,11 @@ export default function Modal({ onClose, onSubmit }) {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:3500/marlet",
-        newProduct
-      );
+      const response = await axios.post("http://localhost:3500/marlet", newProduct);
       if (response.status === 201) {
         toast.success("Mahsulot muvaffaqiyatli qo‘shildi!");
         setSuccessMessage("✅ Mahsulot muvaffaqiyatli qo‘shildi!");
+        localStorage.removeItem(STORAGE_KEY); // Saqlangan ma'lumotni tozalash
         setTimeout(() => {
           onSubmit(response.data);
           onClose();
@@ -88,20 +105,17 @@ export default function Modal({ onClose, onSubmit }) {
     <>
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black/50 flex justify-center items-center z-[9999] "
+        className="fixed inset-0 bg-black/50 flex justify-center items-center z-[9999]"
       >
         <div
           onClick={(e) => e.stopPropagation()}
-          className={`p-8 rounded-2xl shadow-2xl w-full max-w-lg transition-all duration-300 
-          ${
+          className={`p-8 rounded-2xl shadow-2xl w-full max-w-lg transition-all duration-300 ${
             theme === "dark"
               ? "bg-[#2f2f2f] text-white border border-gray-700"
               : "bg-white text-gray-900 border border-gray-200 backdrop-blur-md"
           }`}
         >
-          <h2 className="text-2xl font-bold text-center mb-6">
-            Mahsulot Qo‘shish
-          </h2>
+          <h2 className="text-2xl font-bold text-center mb-6">Mahsulot Qo‘shish</h2>
 
           {successMessage && (
             <div className="mb-4 text-green-500 text-center font-semibold">
@@ -109,7 +123,6 @@ export default function Modal({ onClose, onSubmit }) {
             </div>
           )}
 
-          {/* Mahsulot nomi */}
           <div className="mb-4">
             <input
               type="text"
@@ -122,9 +135,7 @@ export default function Modal({ onClose, onSubmit }) {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            {errors.name && (
-              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-            )}
+            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
           </div>
 
           <div className="mb-4">
@@ -143,7 +154,6 @@ export default function Modal({ onClose, onSubmit }) {
             )}
           </div>
 
-          {/* Narxi */}
           <div className="mb-4">
             <input
               type="number"
@@ -156,12 +166,9 @@ export default function Modal({ onClose, onSubmit }) {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
-            {errors.price && (
-              <p className="text-red-500 text-sm mt-1">{errors.price}</p>
-            )}
+            {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
           </div>
 
-          {/* Rasm tanlash */}
           <div className="mb-4">
             <input
               type="file"
@@ -174,12 +181,9 @@ export default function Modal({ onClose, onSubmit }) {
               }`}
               onChange={handleImageUpload}
             />
-            {errors.image && (
-              <p className="text-red-500 text-sm mt-1">{errors.image}</p>
-            )}
+            {errors.image && <p className="text-red-500 text-sm mt-1">{errors.image}</p>}
           </div>
 
-          {/* Rasm preview */}
           {imagePreviews.length > 0 && (
             <div className="flex flex-wrap gap-3 mb-4">
               {imagePreviews.map((src, idx) => (
@@ -200,7 +204,6 @@ export default function Modal({ onClose, onSubmit }) {
             </div>
           )}
 
-          {/* Kategoriya tanlash */}
           <div className="mb-6">
             <select
               className={`w-full p-2 rounded-lg ${
@@ -218,7 +221,6 @@ export default function Modal({ onClose, onSubmit }) {
             </select>
           </div>
 
-          {/* Tugmalar */}
           <div className="flex justify-end gap-4">
             <button
               onClick={onClose}

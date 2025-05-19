@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import { MyContext } from "../App";
-import { Moon, Sun, Bell, User } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import Modal from "./Modal";
 import Dalet from "./Dalet";
 
@@ -12,6 +12,9 @@ export default function Bady() {
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+
+  // Yangi qo'shilgan: Tanlangan itemni saqlash uchun state
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,7 +77,10 @@ export default function Bady() {
             </li>
             <li
               className="hover:text-yellow-500 cursor-pointer transition-all ml-2"
-              onClick={() => setShowModal(true)}
+              onClick={() => {
+                setSelectedItem(null);  // Yangi item qo'shish uchun oldingi tanlovni tozalash
+                setShowModal(true);
+              }}
             >
               ➕ Qo‘shish
             </li>
@@ -100,16 +106,6 @@ export default function Bady() {
                 <Sun className="cursor-pointer text-yellow-500" />
               )}
             </button>
-            {/* <Bell
-              className={`cursor-pointer ${
-                theme === "dark" ? "text-white" : "text-gray-700"
-              }`}
-            /> */}
-            {/* <User
-              className={`cursor-pointer ${
-                theme === "dark" ? "text-white" : "text-gray-700"
-              }`}
-            /> */}
           </div>
         </div>
 
@@ -130,7 +126,10 @@ export default function Bady() {
               Buyurtmalar
             </h2>
             <button
-              onClick={() => setShowModal(true)}
+              onClick={() => {
+                setSelectedItem(null);  // Yangi item qo'shish uchun tozalash
+                setShowModal(true);
+              }}
               className="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl px-5 py-2 shadow-md transition duration-200"
             >
               + Yangi
@@ -151,13 +150,24 @@ export default function Bady() {
               key={item.id}
               className="grid grid-cols-13 items-center py-3 border-b text-sm rounded-lg transition-all duration-200 px-4"
             >
-              <div className="font-medium">{index + 1}</div> 
-              <div className="truncate col-span-2 px-2">{item.name}</div>
+              {/* ID va Nom bitta joyda */}
+              <div className="flex items-center gap-2 font-medium truncate col-span-3 px-2">
+                <span>{index + 1}.</span>
+                <span>{item.name}</span>
+              </div>
+
+              {/* Tavsif */}
               <div className="truncate col-span-5 px-2">{item.description}</div>
+
+              {/* Narx */}
               <div className="text-green-600 dark:text-green-400 font-semibold col-span-2 line-clamp-2 px-2">
                 {item.price} so'm
               </div>
+
+              {/* Kategoriya */}
               <div className="capitalize px-2">{item.category}</div>
+
+              {/* Rasm */}
               <div className="flex gap-2 flex-wrap px-2">
                 {item.images?.length > 0 && (
                   <img
@@ -167,9 +177,14 @@ export default function Bady() {
                   />
                 )}
               </div>
+
+              {/* Tugmalar */}
               <div className="flex gap-2 justify-center">
                 <button
-                  onClick={() => setShowModal(true)}
+                  onClick={() => {
+                    setSelectedItem(item);  // Edit uchun tanlangan itemni saqlaymiz
+                    setShowModal(true);      // Modalni ochamiz
+                  }}
                   className="bg-yellow-500 hover:bg-yellow-600 text-white w-8 h-8 rounded-full flex items-center justify-center transition"
                 >
                   <FaPen size={14} />
@@ -188,9 +203,17 @@ export default function Bady() {
           ))}
         </div>
       </main>
+
+      {/* Modal uchun */}
       {showModal && (
-        <Modal onClose={() => setShowModal(false)} onSubmit={addItem} />
+        <Modal
+          item={selectedItem}      // Tanlangan itemni uzatamiz
+          onClose={() => setShowModal(false)}
+          onSubmit={addItem}
+        />
       )}
+
+      {/* Delete modal */}
       {showDeleteModal && (
         <Dalet
           onClose={() => {

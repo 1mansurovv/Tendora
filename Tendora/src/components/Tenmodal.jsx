@@ -7,8 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { MyContext } from "../App";
-import { toast, ToastContainer } from "react-toastify"; // react-toastify importi
-import "react-toastify/dist/ReactToastify.css"; // react-toastify CSS ni import qilish
+import { toast } from "react-toastify";
 
 export default function Tenmodal() {
   const { id } = useParams();
@@ -16,9 +15,10 @@ export default function Tenmodal() {
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
-  const { theme, language, setFavorites, cart, setCart } = useContext(MyContext);
+  const { theme, language, addToCart } = useContext(MyContext);
 
   const swiperRef = useRef(null);
+  const [orderCount, setOrderCount] = useState(0);
 
   useEffect(() => {
     fetch(`http://localhost:3500/marlet/${id}`)
@@ -65,15 +65,58 @@ export default function Tenmodal() {
       ru: "Оплата: Есть возможность оплатить картами Uzcard, Humo и в рассрочку.",
     },
   };
+  const handleOrder = () => {
+    setOrderCount((prev) => prev + 1);
 
-  // Mahsulotni savatchaga qo'shish
+    if (orderCount === 0) {
+      toast.success("Buyurtmangiz qabul qilindi!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        theme: isDark ? "dark" : "light",
+      });
+    } else {
+      toast.info("Buyurtmangiz tayyorlanmoqda...", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        theme: isDark ? "dark" : "light",
+      });
+    }
+  };
+
   const handleAddToCart = () => {
-    setCart((prevCart) => [...prevCart, { ...product, quantity, totalPrice }]);
-    toast.success("Mahsulot savatchaga qo'shildi!", { position: toast.POSITION.TOP_RIGHT }); // Toast bildirishnomasi
+    const productToAdd = { ...product, quantity, totalPrice };
+    const added = addToCart(productToAdd);
+    if (added) {
+      toast.success("Mahsulot savatchaga qo'shildi!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        theme: isDark ? "dark" : "light",
+      });
+    } else {
+      toast.info("Mahsulot savatchada mavjud!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        theme: isDark ? "dark" : "light",
+      });
+    }
   };
 
   return (
-    <div className={`${isDark ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+    <div
+      className={`${isDark ? "bg-gray-900 text-white" : "bg-white text-black"}`}
+    >
       <div className="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-10">
         <div>
           <Swiper
@@ -109,7 +152,9 @@ export default function Tenmodal() {
 
         <div className="flex flex-col gap-4">
           <div className="flex justify-between items-start">
-            <h2 className="text-2xl font-bold text-blue-600">{product.description}</h2>
+            <h2 className="text-2xl font-bold text-blue-600">
+              {product.description}
+            </h2>
             <button className="text-2xl text-gray-400 hover:text-red-500 transition">
               <FiHeart />
             </button>
@@ -121,7 +166,9 @@ export default function Tenmodal() {
           </p>
 
           <div className="flex items-center gap-4">
-            <span className="text-gray-700 font-medium">{t.quantity[language]}</span>
+            <span className="text-gray-700 font-medium">
+              {t.quantity[language]}
+            </span>
             <div className="flex items-center gap-2 border rounded-lg px-2 py-1">
               <button onClick={() => setQuantity((q) => Math.max(1, q - 1))}>
                 <FiMinus />
@@ -140,33 +187,22 @@ export default function Tenmodal() {
             >
               {t.addToCart[language]}
             </button>
-            <button className="border border-blue-500 text-blue-500 hover:bg-orange-50 py-2 px-4 rounded-lg font-semibold flex-1">
+            <button
+              onClick={handleOrder}
+              className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg font-semibold flex-1"
+            >
               {t.order[language]}
             </button>
           </div>
 
-          {product.description && (
-            <div className="mt-4">
-              <h3 className="text-lg font-semibold mb-1">
-                {language === "uz" ? "Mahsulot haqida" : "Описание товара"}
-              </h3>
-              <p className="text-gray-700">{product.description}</p>
-            </div>
-          )}
-
-          <p className="text-xl font-bold text-blue-500 mt-2">
+          <p className="text-lg font-bold">
             {t.total[language]}: {totalPrice} so‘m
           </p>
 
-          <div className="mt-6 border-t pt-4 text-sm text-gray-600 space-y-2">
-            <p><strong>{t.shipping[language]}</strong></p>
-            <p><strong>{t.payment[language]}</strong></p>
-          </div>
+          <p className="text-sm mt-4 text-gray-500">{t.shipping[language]}</p>
+          <p className="text-sm text-gray-500">{t.payment[language]}</p>
         </div>
       </div>
-
-      {/* ToastContainer React-toastify uchun */}
-      <ToastContainer />
     </div>
   );
 }
